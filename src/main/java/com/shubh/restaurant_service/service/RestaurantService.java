@@ -65,7 +65,6 @@ public class RestaurantService {
         Restaurant restaurant = RestaurantMapper.toEntity(dto, id);
         
         Restaurant saved = restaurantRepository.save(restaurant);
-        restaurantRepository.flush();
         log.info("✅ Saved restaurant to MySQL: {} with version: {}", saved.getId(), saved.getVersion());
         
         RestaurantDTO savedDTO = RestaurantMapper.toDTO(saved);
