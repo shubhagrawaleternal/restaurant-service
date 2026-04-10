@@ -5,7 +5,7 @@ A production-ready microservices platform for restaurant management built with *
 
 ## 🎯 Overview
 
-This service provides a complete restaurant CRUD API with advanced capabilities including multi-layer caching, cursor-based pagination, geo-location search, rating-based sorting, soft deletes, and idempotent event processing.
+This service provides a complete restaurant CRUD API with advanced capabilities including multi-layer caching, cursor-based pagination, rating-based sorting, soft deletes, and idempotent event processing.
 
 ### Key Features
 
@@ -70,7 +70,7 @@ DynamoDB? ──YES──► Cache & Return (5-10ms)
     │
     NO
     ↓
-MySQL ──► Cache All Layers ──► Return (50-100ms)
+   Error
 ```
 
 ### Write Path (CREATE/UPDATE/DELETE)
@@ -108,15 +108,8 @@ Return Response
 - DynamoDB Local
 ```
 
-### 1. Clone & Build
 
-```bash
-git clone <repository-url>
-cd restaurant-service
-mvn clean install -DskipTests
-```
-
-### 2. Start Infrastructure
+### 1. Start Infrastructure
 
 **MySQL:**
 ```bash
@@ -142,7 +135,7 @@ java -Djava.library.path=./DynamoDBLocal_lib \
   -jar DynamoDBLocal.jar -sharedDb -port 8000
 ```
 
-### 3. Run Application
+### 2. Run Application
 
 ```bash
 mvn spring-boot:run
@@ -455,20 +448,6 @@ done
 - **[ARCHITECTURE.md](ARCHITECTURE.md)**: Detailed architecture, design patterns, and technical decisions
 - **[restaurant.proto](src/main/proto/restaurant.proto)**: gRPC service definition
 
-## 🚨 Production Considerations
-
-### Security
-- Replace hardcoded DynamoDB credentials with IAM roles
-- Use environment variables for sensitive configuration
-- Enable SSL/TLS for gRPC communication
-- Implement authentication/authorization
-
-### Monitoring
-```properties
-# Actuator endpoints for monitoring
-management.endpoints.web.exposure.include=health,metrics,prometheus
-management.endpoint.health.show-details=always
-```
 
 ### Rate Limiting
 - Current limits (2 req/10s) are for demonstration
@@ -480,27 +459,9 @@ management.endpoint.health.show-details=always
 - Configure multi-AZ deployments
 - Implement load balancing for gRPC service
 
-## 📝 License
-
-MIT License - See LICENSE file for details
 
 ## 👤 Author
 
 **Shubh Agrawal**
 - Email: shubh.agrawal@zomato.com
-- GitHub: [Your GitHub Profile]
 
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📞 Support
-
-For issues and questions:
-- Create an issue in the GitHub repository
-- Contact: shubh.agrawal@zomato.com
